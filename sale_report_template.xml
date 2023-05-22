@@ -1,0 +1,47 @@
+<odoo>
+    <template id="sale_report_template">
+        <t t-set="sno" t-value="1"/>
+        <t t-set="total_amount" t-value="0"/>
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Sales Report - Customer: <span t-esc="data['customer'].name"/></h2>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Source</th>
+                    <th>Invoice Number</th>
+                    <th>Invoice Date</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Rate</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="doc['lines']" t-as="line">
+                    <tr>
+                        <td><span t-esc="sno"/></td>
+                        <td><span t-esc="line['source']"/></td>
+                        <td><span t-esc="line['invoice_number']"/></td>
+                        <td><span t-esc="line['invoice_date']"/></td>
+                        <td><span t-esc="line['product']"/></td>
+                        <td><span t-esc="line['quantity']"/></td>
+                        <td><span t-esc="line['rate']"/></td>
+                        <td><span t-esc="line['total']"/></td>
+                    </tr>
+                    <t t-set="sno" t-value="sno + 1"/>
+                    <t t-set="total_amount" t-value="total_amount + line['total']"/>
+                </t>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="7">Total Amount:</th>
+                    <th><span t-esc="total_amount"/></th>
+                </tr>
+            </tfoot>
+        </table>
+    </template>
+</odoo>
